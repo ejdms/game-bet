@@ -32,7 +32,8 @@ const Game = () => {
       cells: [],
       activeCells: [],
       cellsWithBombs: [],
-      canChangeDifficultyOrBet: true
+      canChangeDifficulty: true,
+      canChangeBet: true
     }
   });
   const [info, setInfo] = useState({
@@ -178,7 +179,6 @@ const Game = () => {
 
   const gameOver = (profitIsPositive = true, clickedCell = null) => {
     console.log("Exec gameOver");
-    // debugger;
     setHistory(prev => {
       const bet = game.bet;
       let profit = null;
@@ -209,11 +209,10 @@ const Game = () => {
       play: false,
       reset: true,
       currentPrize: 0,
-      // textOnMainButton: "Play again",
       currentGame: {
         ...prev.currentGame,
-        // activeCells: [],
-        canChangeDifficultyOrBet: true
+        canChangeDifficulty: true,
+        canChangeBet: false
       }
     }));
     disableCells(true, false);
@@ -229,7 +228,6 @@ const Game = () => {
     for (let i = 0; i < multiplyier; i++) {
       playableIndexes.push((level - 1) * multiplyier + i + 1);
     }
-    // console.log(playableIndexes);
     const newCells = cells.map(cell => {
       let playable = false;
 
@@ -240,7 +238,6 @@ const Game = () => {
       if (playable) {
         cell.playable = true;
         activeCells.push(cell);
-        // console.log(cell);
       } else {
         cell.playable = false;
       }
@@ -259,7 +256,7 @@ const Game = () => {
 
   const handleChangeBet = (type, e) => {
     console.log("Exec handleChangeBet");
-    if (!game.play) {
+    if (game.currentGame.canChangeBet) {
       if (type === "-") {
         setGame(prev => ({
           ...game,
@@ -287,178 +284,24 @@ const Game = () => {
       }
     }
   };
-  // OLD CHANGE DIFFICULTY FUNCTION
-  // const handleChangeDifficulty = difficulty => {
-  //   const easyMultiply = [
-  //     1.46,
-  //     2.12,
-  //     3.08,
-  //     4.48,
-  //     6.52,
-  //     9.49,
-  //     13.81,
-  //     20.09,
-  //     29.23,
-  //     42.52
-  //   ];
-  //   const mediumMultiply = [
-  //     1.94,
-  //     3.76,
-  //     7.3,
-  //     14.16,
-  //     27.48,
-  //     53.31,
-  //     103.42,
-  //     200.64,
-  //     389.24,
-  //     755.12
-  //   ];
-  //   const hardMultiply = [
-  //     2.91,
-  //     8.47,
-  //     24.64,
-  //     71.71,
-  //     208.67,
-  //     607.24,
-  //     1767.06,
-  //     5142.14,
-  //     14963.63,
-  //     43544.16
-  //   ];
-  //   if (
-  //     !game.play &&
-  //     (difficulty === "easy" ||
-  //       difficulty === "medium" ||
-  //       difficulty === "hard")
-  //   ) {
-  //     let cells = [];
-  //     let bombIndexes = [];
-  //     let mulitplyTable = [];
-  //     // Bombs random start
-  //     const multiplyier = difficulty === "medium" ? 2 : 3;
-  //     let setBombInThisRow = true;
-  //     let i = 1;
-  //     while (i < 10 * multiplyier) {
-  //       if (setBombInThisRow) {
-  //         const plus = Math.floor(Math.random() * multiplyier);
-  //         bombIndexes.push(i - 1 + plus);
-  //       } else {
-  //         if (i % multiplyier === 0) setBombInThisRow = true;
-  //       }
-  //       i += multiplyier;
-  //     }
-
-  //     // Bombs random end
-
-  //     if (difficulty === "easy") {
-  //       mulitplyTable = easyMultiply;
-  //     } else if (difficulty === "medium") {
-  //       mulitplyTable = mediumMultiply;
-  //     } else {
-  //       mulitplyTable = hardMultiply;
-  //     }
-
-  //     for (let i = 0; i < 10 * multiplyier; i++) {
-  //       const value = Math.floor(
-  //         game.bet * mulitplyTable[Math.floor(i / multiplyier)]
-  //       );
-  //       const hasBomb = bombIndexes.includes(i);
-
-  //       cells.push({
-  //         id: i + 1,
-  //         value,
-  //         hasBomb
-  //       });
-  //     }
-
-  //     setGame({
-  //       ...game,
-  //       difficulty,
-  //       currentGame: {
-  //         ...game.currentGame,
-  //         cells,
-  //         cellsWithBombs: bombIndexes
-  //       }
-  //     });
-  //   }
-  // };
-  // NEW CHANGE DIFFICULTY FUNCTION - SHOULD CHANGE DIFFICULTY AND THEN CALL fillPlaygroundWithCells FUNCTION
   const handleChangeDifficulty = difficulty => {
     console.log("Exec handleChangeDifficulty");
     if (
-      game.currentGame.canChangeDifficultyOrBet &&
+      game.currentGame.canChangeDifficulty &&
       (difficulty === "easy" ||
         difficulty === "medium" ||
         difficulty === "hard")
     ) {
       setGame(prev => ({
         ...prev,
-        // play: true,
         startScreenVisible: false,
-        // textOnMainButton: "Click on active field",
         difficulty,
         currentGame: {
           ...prev.currentGame
         }
       }));
-      // changeTextOnMainButton();
     }
   };
-  // const handleGameButtonClick = () => {
-  //   if (game.play && !game.reset) {
-  //     //zakonczenie gry
-
-  //     setHistory(prev => {
-  //       const bet = game.bet;
-  //       const profit = game.currentPrize;
-  //       const steps = prev[prev.length - 1].steps + 1;
-  //       return [
-  //         ...prev,
-  //         {
-  //           bet,
-  //           profit,
-  //           steps
-  //         }
-  //       ];
-  //     });
-  //     setInfo(prev => ({
-  //       ...info,
-  //       money: prev.money + game.currentPrize,
-  //       gamesPlayed: prev.gamesPlayed + 1
-  //     }));
-
-  //     disableCells(true,false);
-
-  //     setGame(prev => ({
-  //       ...prev,
-  //       play: false,
-  //       reset: true,
-  //       currentPrize: 0,
-  //       textOnMainButton: "Play again",
-  //       currentGame: {
-  //         ...prev.currentGame,
-  //         activeCells: [],
-  //         canChangeDifficultyOrBet: true
-  //       }
-  //     }));
-  //   } else if (game.difficulty && !game.reset) {
-  //     //rozpoczecie gry
-  //     disableCells(true,false);
-  //     fillPlaygroundWithCells();
-  //     createPlayableCells();
-  //     setGame(prev => ({
-  //       ...prev,
-  //       play: true,
-  //       currentPrize: 0,
-  //       currentGame: {
-  //         ...prev.currentGame
-  //       }
-  //     }));
-  //   } else if (game.reset) {
-  //     fillPlaygroundWithCells();
-  //     createPlayableCells();
-  //   }
-  // };
   const handleGameButtonClick = () => {
     console.log("Exec handleGameButtonClick");
     if (game.reset) {
@@ -470,44 +313,11 @@ const Game = () => {
       disableCells(true, true);
       fillPlaygroundWithCells();
       createPlayableCells();
-      // changeTextOnMainButton();
     } else {
       if (game.currentGame.level > 1) {
         if (game.play) {
-          gameOver();
           //zakonczenie gry
-          // setHistory(prev => {
-          //   const bet = game.bet;
-          //   const profit = game.currentPrize;
-          //   const steps = prev[prev.length - 1].steps + 1;
-          //   return [
-          //     ...prev,
-          //     {
-          //       bet,
-          //       profit,
-          //       steps
-          //     }
-          //   ];
-          // });
-          // setInfo(prev => ({
-          //   ...info,
-          //   money: prev.money + game.currentPrize,
-          //   gamesPlayed: prev.gamesPlayed + 1
-          // }));
-          // disableCells(true, false);
-          // setGame(prev => ({
-          //   ...prev,
-          //   play: false,
-          //   reset: true,
-          //   currentPrize: 0,
-          //   // textOnMainButton: "Play again",
-          //   currentGame: {
-          //     ...prev.currentGame,
-          //     activeCells: [],
-          //     canChangeDifficultyOrBet: true
-          //   }
-          // }));
-          // changeTextOnMainButton();
+          gameOver();
         } else if (game.difficulty) {
           //rozpoczecie gry
           if (game.reset) {
@@ -543,7 +353,8 @@ const Game = () => {
           play: true,
           currentGame: {
             ...prev.currentGame,
-            canChangeDifficultyOrBet: false
+            canChangeDifficulty: false,
+            canChangeBet: true
           }
         }));
         setInfo(prev => ({
@@ -554,19 +365,6 @@ const Game = () => {
 
       if (clickedCell.hasBomb) {
         //game over
-        // setGame(prev => ({
-        //   ...prev,
-        //   play: false,
-        //   reset: true,
-        //   currentGame: {
-        //     ...prev.currentGame,
-        //     activeCells: [],
-        //     level: 1,
-        //     currentPrize: 0
-        //   }
-        // }));
-        // disableCells(true, false);
-        // changeTextOnMainButton();
         gameOver(false, clickedCell);
       } else {
         //can play
@@ -576,7 +374,8 @@ const Game = () => {
           currentGame: {
             ...prev.currentGame,
             level: prev.currentGame.level + 1,
-            canChangeDifficultyOrBet: false
+            canChangeDifficulty: false,
+            canChangeBet: true
           }
         }));
       }
@@ -590,7 +389,7 @@ const Game = () => {
   //
   useEffect(() => {
     console.log("Exec useEffect game.bet");
-    fillPlaygroundWithCells();
+    if (!game.play) fillPlaygroundWithCells();
   }, [game.bet]);
   //
   useEffect(() => {

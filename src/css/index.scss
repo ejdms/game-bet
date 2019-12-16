@@ -1,0 +1,199 @@
+$retroBg: #0f0f0f;
+$retroText: #fff;
+$scanLineColor: rgba(0, 0, 0, 0.15);
+
+html {
+  --retroPadding: 7vh;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+.retro-layout {
+  color: $retroText;
+  background-color: $retroBg;
+  height: 100vh;
+  padding: var(--retroPadding);
+  font-family: "VT323", monospace;
+
+  .retro-layout-inside {
+    border: 5px solid;
+    border-radius: 50px;
+    height: calc(100vh - var(--retroPadding) * 2);
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 20px;
+
+    .scan-lines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 120vh;
+      width: 100%;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: space-around;
+      z-index: 1000;
+      pointer-events: none;
+      animation: scanLineAnim 2s linear 0s infinite reverse both; //.7
+
+      .scan-line {
+        height: 0.3vh; //0.6
+        background-color: $scanLineColor;
+        box-shadow: 0 0 2px 0.2px $scanLineColor;
+      }
+    }
+  }
+}
+
+.game-field {
+  width: 100%;
+  height: 100%;
+
+  .game-header {
+    text-align: center;
+    margin-bottom: 20px;
+    height: 20px;
+  }
+
+  .game-columns {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    height: calc(100% - 40px);
+
+    .game-column {
+      width: 30%;
+
+      .column {
+        padding: 5px;
+        border: 2px solid;
+        border-radius: 10px;
+
+        &.columns-inside {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          min-height: 20vh;
+          text-align: center;
+
+          .game-column-bet {
+            align-self: center;
+            cursor: pointer;
+            opacity: 0.4;
+
+            &.playable {
+              opacity: 1;
+            }
+
+            &.clicked-positive {
+              color: green;
+              opacity: 1;
+            }
+
+            &.clicked-negative {
+              color: red;
+              opacity: 1;
+            }
+          }
+
+          &.columns-2 {
+            grid-template-columns: repeat(2, 1fr);
+          }
+
+          &.start-screen-visible {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            flex-flow: column nowrap;
+          }
+        }
+      }
+
+      &.game-history-column .column {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      &.game-game-column {
+        height: 100%;
+
+        .column {
+          height: calc(
+            100% - 20px - 0.3em - 36px - 16px - 20px
+          ); //100% - startBtn - bet - difficulty - margin
+          max-height: 350px;
+        }
+
+        .bet,
+        .difficulty {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+        }
+
+        .bet {
+          li {
+            div {
+              cursor: pointer;
+              padding: 10px;
+            }
+          }
+        }
+
+        .difficulty {
+          & > li {
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+
+            &.active {
+              background-color: grey;
+            }
+          }
+        }
+
+        .game-button {
+          margin-top: 5px;
+          display: block;
+          width: 100%;
+          padding: 0.3em 0;
+          background: none;
+          border: none;
+          color: #fff;
+          font-family: inherit;
+          text-align: center;
+          cursor: pointer;
+          font-size: 20px;
+        }
+
+        .bet-input {
+          background: none;
+          border: 1.5px solid #fff;
+          border-radius: 2px;
+          padding: 0.3em;
+          color: #fff;
+          font-family: inherit;
+        }
+      }
+    }
+  }
+}
+
+@keyframes scanLineAnim {
+  0% {
+    transform: translateY(0vh);
+  }
+
+  100% {
+    transform: translateY(-20vh);
+  }
+}

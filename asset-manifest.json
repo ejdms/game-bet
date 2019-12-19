@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/game-bet/index.html/static/css/main.32c5c161.chunk.css",
-    "main.js": "/game-bet/index.html/static/js/main.a08502d6.chunk.js",
-    "main.js.map": "/game-bet/index.html/static/js/main.a08502d6.chunk.js.map",
-    "runtime-main.js": "/game-bet/index.html/static/js/runtime-main.f2f582a3.js",
-    "runtime-main.js.map": "/game-bet/index.html/static/js/runtime-main.f2f582a3.js.map",
-    "static/js/2.bd4f691b.chunk.js": "/game-bet/index.html/static/js/2.bd4f691b.chunk.js",
-    "static/js/2.bd4f691b.chunk.js.map": "/game-bet/index.html/static/js/2.bd4f691b.chunk.js.map",
-    "index.html": "/game-bet/index.html/index.html",
-    "precache-manifest.9ee3dd731a008bb287f83881d2e3fb67.js": "/game-bet/index.html/precache-manifest.9ee3dd731a008bb287f83881d2e3fb67.js",
-    "service-worker.js": "/game-bet/index.html/service-worker.js",
-    "static/css/main.32c5c161.chunk.css.map": "/game-bet/index.html/static/css/main.32c5c161.chunk.css.map",
-    "static/js/2.bd4f691b.chunk.js.LICENSE": "/game-bet/index.html/static/js/2.bd4f691b.chunk.js.LICENSE"
+    "main.css": "/game-bet/static/css/main.32c5c161.chunk.css",
+    "main.js": "/game-bet/static/js/main.36bf0034.chunk.js",
+    "main.js.map": "/game-bet/static/js/main.36bf0034.chunk.js.map",
+    "runtime-main.js": "/game-bet/static/js/runtime-main.847c4241.js",
+    "runtime-main.js.map": "/game-bet/static/js/runtime-main.847c4241.js.map",
+    "static/js/2.bd4f691b.chunk.js": "/game-bet/static/js/2.bd4f691b.chunk.js",
+    "static/js/2.bd4f691b.chunk.js.map": "/game-bet/static/js/2.bd4f691b.chunk.js.map",
+    "index.html": "/game-bet/index.html",
+    "precache-manifest.973df28cf8e5fde6507885ccaea93374.js": "/game-bet/precache-manifest.973df28cf8e5fde6507885ccaea93374.js",
+    "service-worker.js": "/game-bet/service-worker.js",
+    "static/css/main.32c5c161.chunk.css.map": "/game-bet/static/css/main.32c5c161.chunk.css.map",
+    "static/js/2.bd4f691b.chunk.js.LICENSE": "/game-bet/static/js/2.bd4f691b.chunk.js.LICENSE"
   },
   "entrypoints": [
-    "static/js/runtime-main.f2f582a3.js",
+    "static/js/runtime-main.847c4241.js",
     "static/js/2.bd4f691b.chunk.js",
     "static/css/main.32c5c161.chunk.css",
-    "static/js/main.a08502d6.chunk.js"
+    "static/js/main.36bf0034.chunk.js"
   ]
 }

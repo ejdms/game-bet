@@ -1,5 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { StoreProvider } from "easy-peasy";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addRecord,
+  resetRecords,
+  stopGame,
+  startGame,
+  enableReset,
+  disableReset,
+  changeBet,
+  increaseBet,
+  decreaseBet,
+  changeCurrentPrize,
+  addToCurrentPrize,
+  changeDifficulty,
+  hideStartScreen,
+  showStartScreen,
+  changeTextOnMainButton,
+  increaseLevel,
+  resetLevel,
+  changeCells,
+  changeActiveCells,
+  changeCellsWithBombs,
+  disableDifficultyChange,
+  enableDifficultyChange,
+  disableBetChange,
+  enableBetChange,
+  addMoney,
+  removeMoney,
+  incrementGamesPlayed,
+  resetGamesPlayed
+} from "../actions";
+
 import store from "../store";
 import GameField from "../components/GameField";
 import GameHeader from "../components/GameHeader";
@@ -7,39 +39,43 @@ import GameColumns from "../components/GameColumns";
 import GameColumn from "../components/GameColumn";
 
 const Game = () => {
-  const [history, setHistory] = useState([
-    {
-      bet: 2,
-      profit: 0,
-      steps: 1
-    },
-    {
-      bet: 20,
-      profit: 12,
-      steps: 2
-    }
-  ]);
-  const [game, setGame] = useState({
-    play: false,
-    reset: false,
-    bet: 20,
-    currentPrize: 0,
-    difficulty: null,
-    startScreenVisible: true,
-    textOnMainButton: "Choose difficulty",
-    currentGame: {
-      level: null,
-      cells: [],
-      activeCells: [],
-      cellsWithBombs: [],
-      canChangeDifficulty: true,
-      canChangeBet: true
-    }
-  });
-  const [info, setInfo] = useState({
-    money: 1000,
-    gamesPlayed: 0
-  });
+  const dispatch = useDispatch();
+  const history = useSelector(state => state.history);
+  const game = useSelector(state => state.game);
+  const info = useSelector(state => state.info);
+  // const [history, setHistory] = useState([
+  //   {
+  //     bet: 2,
+  //     profit: 0,
+  //     steps: 1
+  //   },
+  //   {
+  //     bet: 20,
+  //     profit: 12,
+  //     steps: 2
+  //   }
+  // ]);
+  // const [game, setGame] = useState({
+  //   play: false,
+  //   reset: false,
+  //   bet: 20,
+  //   currentPrize: 0,
+  //   difficulty: null,
+  //   startScreenVisible: true,
+  //   textOnMainButton: "Choose difficulty",
+  //   currentGame: {
+  //     level: null,
+  //     cells: [],
+  //     activeCells: [],
+  //     cellsWithBombs: [],
+  //     canChangeDifficulty: true,
+  //     canChangeBet: true
+  //   }
+  // });
+  // const [info, setInfo] = useState({
+  //   money: 1000,
+  //   gamesPlayed: 0
+  // });
 
   //
   const fillPlaygroundWithCells = () => {
@@ -125,15 +161,18 @@ const Game = () => {
 
     cells.reverse();
 
-    setGame(prev => ({
-      ...prev,
-      currentGame: {
-        ...prev.currentGame,
-        level: 1,
-        cells,
-        cellsWithBombs: bombIndexes
-      }
-    }));
+    // setGame(prev => ({
+    //   ...prev,
+    //   currentGame: {
+    //     ...prev.currentGame,
+    //     level: 1,
+    //     cells,
+    //     cellsWithBombs: bombIndexes
+    //   }
+    // }));
+    dispatch(resetLevel());
+    dispatch(changeCells(cells));
+    dispatch(changeCellsWithBombs(bombIndexes));
   };
 
   const disableCells = (playable = false, clicked = false) => {
@@ -144,16 +183,17 @@ const Game = () => {
       if (clicked) cell.clicked = false;
       return cell;
     });
-    setGame(prev => ({
-      ...prev,
-      currentGame: {
-        ...prev.currentGame,
-        cells: [...newCells]
-      }
-    }));
+    // setGame(prev => ({
+    //   ...prev,
+    //   currentGame: {
+    //     ...prev.currentGame,
+    //     cells: [...newCells]
+    //   }
+    // }));
+    dispatch(changeCells([...newCells]));
   };
 
-  const changeTextOnMainButton = () => {
+  const changeTextOnMainButtonFunction = () => {
     console.log("Exec changeTextOnMainButton");
     let text = "";
     if (!game.play && !game.reset) {
@@ -168,53 +208,79 @@ const Game = () => {
     } else {
       text = "Not defined";
     }
-    setGame(prev => ({
-      ...prev,
-      textOnMainButton: text,
-      currentGame: {
-        ...prev.currentGame
-      }
-    }));
+    // setGame(prev => ({
+    //   ...prev,
+    //   textOnMainButton: text,
+    //   currentGame: {
+    //     ...prev.currentGame
+    //   }
+    // }));
+    dispatch(changeTextOnMainButton(text));
   };
 
   const gameOver = (profitIsPositive = true, clickedCell = null) => {
     console.log("Exec gameOver");
-    setHistory(prev => {
-      const bet = game.bet;
-      let profit = null;
-      if (game.currentGame.level === 1) {
-        profit = clickedCell.value;
-      } else {
-        profit = game.bet;
-      }
-      if (!profitIsPositive) profit *= -1;
-      const steps = game.currentGame.level;
-      return [
-        ...prev,
-        {
-          bet,
-          profit,
-          steps
-        }
-      ];
-    });
-    setInfo(prev => ({
-      ...info,
-      money: prev.money + game.currentPrize,
-      gamesPlayed: prev.gamesPlayed + 1
-    }));
+    // setHistory(prev => {
+    //   const bet = game.bet;
+    //   let profit = null;
+    //   if (game.currentGame.level === 1) {
+    //     profit = clickedCell.value;
+    //   } else {
+    //     profit = game.bet;
+    //   }
+    //   if (!profitIsPositive) profit *= -1;
+    //   const steps = game.currentGame.level;
+    //   return [
+    //     ...prev,
+    //     {
+    //       bet,
+    //       profit,
+    //       steps
+    //     }
+    //   ];
+    // });
+    //
+    const bet = game.bet;
+    let profit = null;
+    if (game.currentGame.level === 1) {
+      profit = clickedCell.value;
+    } else {
+      profit = game.bet;
+    }
+    if (!profitIsPositive) profit *= -1;
+    const steps = game.currentGame.level;
+    dispatch(
+      addRecord({
+        bet,
+        profit,
+        steps
+      })
+    );
+    //
+    // setInfo(prev => ({
+    //   ...info,
+    //   money: prev.money + game.currentPrize,
+    //   gamesPlayed: prev.gamesPlayed + 1
+    // }));
+    dispatch(addMoney(game.currentPrize));
+    dispatch(incrementGamesPlayed());
 
-    setGame(prev => ({
-      ...prev,
-      play: false,
-      reset: true,
-      currentPrize: 0,
-      currentGame: {
-        ...prev.currentGame,
-        canChangeDifficulty: true,
-        canChangeBet: false
-      }
-    }));
+    // setGame(prev => ({
+    //   ...prev,
+    //   play: false,
+    //   reset: true,
+    //   currentPrize: 0,
+    //   currentGame: {
+    //     ...prev.currentGame,
+    //     canChangeDifficulty: false,
+    //     canChangeBet: false
+    //   }
+    // }));
+    dispatch(stopGame());
+    dispatch(enableReset());
+    dispatch(changeCurrentPrize(0));
+    dispatch(disableDifficultyChange());
+    dispatch(disableBetChange());
     disableCells(true, false);
   };
 
@@ -244,29 +310,32 @@ const Game = () => {
 
       return cell;
     });
-    setGame(prev => ({
-      ...prev,
-      currentGame: {
-        ...prev.currentGame,
-        activeCells,
-        cells: [...newCells]
-      }
-    }));
+    // setGame(prev => ({
+    //   ...prev,
+    //   currentGame: {
+    //     ...prev.currentGame,
+    //     activeCells,
+    //     cells: [...newCells]
+    //   }
+    // }));
+    dispatch(changeActiveCells(activeCells));
+    dispatch(changeCells([...newCells]));
   };
 
   const handleChangeBet = (type, e) => {
     console.log("Exec handleChangeBet");
     if (game.currentGame.canChangeBet) {
       if (type === "-") {
-        setGame(prev => ({
-          ...game,
-          bet: prev.bet - 1
-        }));
+        // setGame(prev => ({
+        //   ...game,
+        //   bet: prev.bet - 1
+        // }));
       } else if (type === "+") {
-        setGame(prev => ({
-          ...game,
-          bet: prev.bet + 1
-        }));
+        // setGame(prev => ({
+        //   ...game,
+        //   bet: prev.bet + 1
+        // }));
+        dispatch(increaseBet());
       } else if (type === "change") {
         let value = e.target.value;
         if (value === "") value = 0;
@@ -274,13 +343,14 @@ const Game = () => {
         const valueString = value + "";
         if (valueString.length > 1 && valueString[0] === "0")
           value = parseInt(valueString.slice(0));
-        setGame(prev => ({
-          ...prev,
-          bet: value,
-          currentGame: {
-            ...prev.currentGame
-          }
-        }));
+        // setGame(prev => ({
+        //   ...prev,
+        //   bet: value,
+        //   currentGame: {
+        //     ...prev.currentGame
+        //   }
+        // }));
+        dispatch(changeBet(value));
       }
     }
   };
@@ -292,24 +362,33 @@ const Game = () => {
         difficulty === "medium" ||
         difficulty === "hard")
     ) {
-      setGame(prev => ({
-        ...prev,
-        startScreenVisible: false,
-        difficulty,
-        currentGame: {
-          ...prev.currentGame
-        }
-      }));
+      // setGame(prev => ({
+      //   ...prev,
+      //   startScreenVisible: false,
+      //   difficulty,
+      //   currentGame: {
+      //     ...prev.currentGame
+      //   }
+      // }));
+      dispatch(hideStartScreen());
+      dispatch(changeDifficulty(difficulty));
     }
   };
   const handleGameButtonClick = () => {
     console.log("Exec handleGameButtonClick");
     if (game.reset) {
-      setGame(prev => ({
-        ...prev,
-        reset: false,
-        currentGame: { ...prev.currentGame }
-      }));
+      // setGame(prev => ({
+      //   ...prev,
+      //   reset: false,
+      //   currentGame: {
+      //     ...prev.currentGame,
+      //     canChangeBet: true,
+      //     canChangeDifficulty: true
+      //   }
+      // }));
+      dispatch(disableReset());
+      dispatch(enableBetChange());
+      dispatch(enableDifficultyChange());
       disableCells(true, true);
       fillPlaygroundWithCells();
       createPlayableCells();
@@ -327,15 +406,18 @@ const Game = () => {
           }
           fillPlaygroundWithCells();
           if (!game.reset) createPlayableCells();
-          setGame(prev => ({
-            ...prev,
-            reset: false,
-            play: true,
-            currentPrize: 0,
-            currentGame: {
-              ...prev.currentGame
-            }
-          }));
+          // setGame(prev => ({
+          //   ...prev,
+          //   reset: false,
+          //   play: true,
+          //   currentPrize: 0,
+          //   currentGame: {
+          //     ...prev.currentGame
+          //   }
+          // }));
+          dispatch(enableReset());
+          dispatch(startGame());
+          dispatch(changeCurrentPrize(0));
         }
       }
     }
@@ -348,19 +430,23 @@ const Game = () => {
       clickedCell.clicked = true;
       //pierwszy wybor gracza
       if (game.currentGame.level === 1) {
-        setGame(prev => ({
-          ...prev,
-          play: true,
-          currentGame: {
-            ...prev.currentGame,
-            canChangeDifficulty: false,
-            canChangeBet: true
-          }
-        }));
-        setInfo(prev => ({
-          ...prev,
-          money: prev.money - game.bet
-        }));
+        // setGame(prev => ({
+        //   ...prev,
+        //   play: true,
+        //   currentGame: {
+        //     ...prev.currentGame,
+        //     canChangeDifficulty: false,
+        //     canChangeBet: true
+        //   }
+        // }));
+        dispatch(startGame());
+        dispatch(disableDifficultyChange());
+        dispatch(enableBetChange());
+        // setInfo(prev => ({
+        //   ...prev,
+        //   money: prev.money - game.bet
+        // }));
+        dispatch(removeMoney(game.bet));
       }
 
       if (clickedCell.hasBomb) {
@@ -368,16 +454,20 @@ const Game = () => {
         gameOver(false, clickedCell);
       } else {
         //can play
-        setGame(prev => ({
-          ...prev,
-          currentPrize: prev.currentPrize + clickedCell.value,
-          currentGame: {
-            ...prev.currentGame,
-            level: prev.currentGame.level + 1,
-            canChangeDifficulty: false,
-            canChangeBet: true
-          }
-        }));
+        // setGame(prev => ({
+        //   ...prev,
+        //   currentPrize: prev.currentPrize + clickedCell.value,
+        //   currentGame: {
+        //     ...prev.currentGame,
+        //     level: prev.currentGame.level + 1,
+        //     canChangeDifficulty: false,
+        //     canChangeBet: true
+        //   }
+        // }));
+        dispatch(addToCurrentPrize(clickedCell.value));
+        dispatch(increaseLevel());
+        dispatch(disableDifficultyChange());
+        dispatch(enableBetChange());
       }
     }
   };
@@ -439,23 +529,20 @@ const Game = () => {
         return cell;
       });
       // const clickedCells = [...newCells.filter(cell => cell.clicked)];
-      setGame(prev => ({
-        ...prev,
-        // textOnMainButton:
-        //   clickedCells.length && game.play
-        //     ? `Take ${game.currentPrize}`
-        //     : prev.textOnMainButton,
-        currentGame: {
-          ...prev.currentGame,
-          cells: [...newCells]
-        }
-      }));
+      // setGame(prev => ({
+      //   ...prev,
+      //   currentGame: {
+      //     ...prev.currentGame,
+      //     cells: [...newCells]
+      //   }
+      // }));
+      dispatch(changeCells([...newCells]));
       // changeTextOnMainButton();
     }
   }, [game.currentGame.activeCells]);
   useEffect(() => {
     console.log("Exec useEffect textOnButton");
-    changeTextOnMainButton();
+    changeTextOnMainButtonFunction();
   }, [game.play, game.reset, game.difficulty, game.currentGame.level]);
   //
   return (

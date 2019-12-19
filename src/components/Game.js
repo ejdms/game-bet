@@ -46,7 +46,7 @@ const Game = () => {
 
   //
   const fillPlaygroundWithCells = () => {
-    console.log("Exec fillPlaygroundWithCells");
+    // console.log("Exec fillPlaygroundWithCells");
     const { difficulty } = game;
     const easyMultiply = [
       1.46,
@@ -134,7 +134,7 @@ const Game = () => {
   };
 
   const disableCells = (playable = false, clicked = false) => {
-    console.log("Exec disableCells");
+    // console.log("Exec disableCells");
     const cells = [...game.currentGame.cells];
     const newCells = cells.map(cell => {
       if (playable) cell.playable = false;
@@ -145,7 +145,7 @@ const Game = () => {
   };
 
   const changeTextOnMainButtonFunction = () => {
-    console.log("Exec changeTextOnMainButton");
+    // console.log("Exec changeTextOnMainButton");
     let text = "";
     if (!game.play && !game.reset) {
       text = game.difficulty ? "Click on active field" : "Choose difficulty";
@@ -163,7 +163,7 @@ const Game = () => {
   };
 
   const gameOver = (profitIsPositive = true, clickedCell = null) => {
-    console.log("Exec gameOver");
+    // console.log("Exec gameOver");
     const bet = game.bet;
     let profit = null;
     if (game.currentGame.level === 1) {
@@ -191,7 +191,7 @@ const Game = () => {
   };
 
   const createPlayableCells = () => {
-    console.log("Exec createPlayableCells");
+    // console.log("Exec createPlayableCells");
     let cells = [...game.currentGame.cells];
     let activeCells = [];
     const multiplyier = game.difficulty === "medium" ? 2 : 3;
@@ -221,7 +221,7 @@ const Game = () => {
   };
 
   const handleChangeBet = (type, e) => {
-    console.log("Exec handleChangeBet");
+    // console.log("Exec handleChangeBet");
     if (game.currentGame.canChangeBet) {
       if (type === "-") {
         dispatch(decreaseBet());
@@ -239,7 +239,7 @@ const Game = () => {
     }
   };
   const handleChangeDifficulty = difficulty => {
-    console.log("Exec handleChangeDifficulty");
+    // console.log("Exec handleChangeDifficulty");
     if (
       game.currentGame.canChangeDifficulty &&
       (difficulty === "easy" ||
@@ -251,14 +251,13 @@ const Game = () => {
     }
   };
   const handleGameButtonClick = () => {
-    console.log("Exec handleGameButtonClick");
+    // console.log("Exec handleGameButtonClick");
     if (game.reset) {
       dispatch(disableReset());
       dispatch(enableBetChange());
       dispatch(enableDifficultyChange());
       disableCells(true, true);
       fillPlaygroundWithCells();
-      createPlayableCells();
     } else {
       if (game.currentGame.level > 1) {
         if (game.play) {
@@ -281,7 +280,7 @@ const Game = () => {
     }
   };
   const handleGameFieldClick = id => {
-    console.log("Exec handleGameFieldClick");
+    // console.log("Exec handleGameFieldClick");
     let cells = [...game.currentGame.cells];
     const clickedCell = cells.filter(cell => cell.id === id)[0];
     if (clickedCell.playable) {
@@ -308,29 +307,29 @@ const Game = () => {
   };
   //
   useEffect(() => {
-    console.log("Exec useEffect game.play");
+    // console.log("Exec useEffect game.play");
     createPlayableCells();
   }, [game.play]);
   //
   useEffect(() => {
-    console.log("Exec useEffect game.bet");
+    // console.log("Exec useEffect game.bet");
     if (!game.play) fillPlaygroundWithCells();
   }, [game.bet]);
   //
   useEffect(() => {
-    console.log("Exec useEffect game.difficulty");
+    // console.log("Exec useEffect game.difficulty");
     fillPlaygroundWithCells();
   }, [game.difficulty]);
 
   useEffect(() => {
-    console.log("Exec useEffect game.currerntGame.level");
+    // console.log("Exec useEffect game.currerntGame.level");
     if (game.currentGame.level) {
       createPlayableCells();
     }
   }, [game.currentGame.level]);
 
   useEffect(() => {
-    console.log("Exec useEffect game.currentGame.cells");
+    // console.log("Exec useEffect game.currentGame.cells");
     if (game.currentGame.cells.length && !game.reset) {
       const activeCellsOnGameField = game.currentGame.cells.filter(
         cell => cell.playable
@@ -345,7 +344,7 @@ const Game = () => {
     }
   }, [game.currentGame.cells]);
   useEffect(() => {
-    console.log("Exec useEffect game.currentGame.activeCells");
+    // console.log("Exec useEffect game.currentGame.activeCells");
     const { activeCells } = game.currentGame;
     if (activeCells.length) {
       const cells = [...game.currentGame.cells];
@@ -367,7 +366,7 @@ const Game = () => {
     }
   }, [game.currentGame.activeCells]);
   useEffect(() => {
-    console.log("Exec useEffect textOnButton");
+    // console.log("Exec useEffect textOnButton");
     changeTextOnMainButtonFunction();
   }, [game.play, game.reset, game.difficulty, game.currentGame.level]);
   //

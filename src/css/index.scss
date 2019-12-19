@@ -119,6 +119,7 @@ ol {
       }
 
       &.game-history-column .column {
+        position: relative;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
       }
@@ -182,6 +183,12 @@ ol {
           padding: 0.3em;
           color: #fff;
           font-family: inherit;
+        }
+      }
+
+      &.game-info-column {
+        .game-info {
+          margin-top: 12px;
         }
       }
     }

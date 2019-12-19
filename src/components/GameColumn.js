@@ -33,33 +33,6 @@ const GameColumn = props => {
         }
       }
     });
-    // const historyRecords = history.map(record => {
-    //   i = i + 3;
-    //   // return (
-    //   //   <>
-    //   //     <div key={i}>{record.bet}</div>
-    //   //     <div key={i + 1}>{record.profit}</div>
-    //   //     <div key={i + 2}>{record.steps}</div>
-    //   //   </>
-    //   // );
-    //   let recordWithProperty = null;
-    //   for (let index = 0; index < 3; index++) {
-    //     switch (index) {
-    //       case 0:
-    //         recordWithProperty = <div key={i}>{record.bet}</div>;
-    //         break;
-    //       case 1:
-    //         recordWithProperty = <div key={i + 1}>{record.profit}</div>;
-    //         break;
-    //       case 2:
-    //         recordWithProperty = <div key={i + 2}>{record.steps}</div>;
-    //         break;
-    //       default:
-    //         break;
-    //     }
-    //   }
-    //   return recordWithProperty;
-    // });
     code = (
       <div className="game-column game-history-column">
         <GameColorColumn color={color}>

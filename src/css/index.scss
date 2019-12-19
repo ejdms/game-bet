@@ -4,6 +4,7 @@ $scanLineColor: rgba(0, 0, 0, 0.15);
 
 html {
   --retroPadding: 7vh;
+  --retroPaddingMobile: 20px;
 }
 
 * {
@@ -189,6 +190,59 @@ ol {
       &.game-info-column {
         .game-info {
           margin-top: 12px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .retro-layout {
+    color: $retroText;
+    background-color: $retroBg;
+    height: 100vh;
+    padding: var(--retroPaddingMobile);
+    font-family: "VT323", monospace;
+
+    .retro-layout-inside {
+      border: 3px solid;
+      border-radius: 50px;
+      height: calc(100vh - var(--retroPaddingMobile) * 2);
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: 20px 10px 40px;
+    }
+  }
+
+  .game-field {
+    .game-header {
+      margin-bottom: 15px;
+    }
+
+    .game-columns {
+      flex-flow: column nowrap;
+
+      .game-column {
+        width: 100%;
+
+        + .game-column {
+          margin-top: 20px;
+        }
+
+        &.game-history-column {
+          flex-basis: 80px;
+          overflow: hidden;
+
+          .column {
+            height: 100%;
+            overflow: auto;
+          }
+        }
+
+        &.game-info-column {
+          .game-info {
+            text-align: center;
+          }
         }
       }
     }

@@ -1,14 +1,14 @@
 const initialState = [
-  {
-    bet: 2,
-    profit: 0,
-    steps: 1
-  },
-  {
-    bet: 20,
-    profit: 12,
-    steps: 2
-  }
+  // {
+  //   bet: 2,
+  //   profit: 0,
+  //   steps: 1
+  // },
+  // {
+  //   bet: 20,
+  //   profit: 12,
+  //   steps: 2
+  // }
 ];
 
 const history = (state = initialState, action) => {
@@ -21,7 +21,8 @@ const history = (state = initialState, action) => {
         steps
       };
       return [...state, newRecord];
-
+    case "RESET_RECORDS":
+      return [];
     default:
       return state;
   }

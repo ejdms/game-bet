@@ -10,6 +10,21 @@ const info = (state = initialState, action) => {
         ...state,
         money: state.money + action.payload
       };
+    case "REMOVE_MONEY":
+      return {
+        ...state,
+        money: state.money - action.payload
+      };
+    case "INCREMENT_GAMES_PLAYED":
+      return {
+        ...state,
+        gamesPlayed: state.gamesPlayed + 1
+      };
+    case "RESET_GAMES_PLAYED":
+      return {
+        ...state,
+        gamesPlayed: 0
+      };
     default:
       return state;
   }

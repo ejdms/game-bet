@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/game-bet/index.html/static/css/main.8d5a8369.chunk.css",
+    "main.css": "/game-bet/index.html/static/css/main.32c5c161.chunk.css",
     "main.js": "/game-bet/index.html/static/js/main.a08502d6.chunk.js",
     "main.js.map": "/game-bet/index.html/static/js/main.a08502d6.chunk.js.map",
     "runtime-main.js": "/game-bet/index.html/static/js/runtime-main.f2f582a3.js",
@@ -8,15 +8,15 @@
     "static/js/2.bd4f691b.chunk.js": "/game-bet/index.html/static/js/2.bd4f691b.chunk.js",
     "static/js/2.bd4f691b.chunk.js.map": "/game-bet/index.html/static/js/2.bd4f691b.chunk.js.map",
     "index.html": "/game-bet/index.html/index.html",
-    "precache-manifest.7e463ea45d8a45ed135b27a50ecc2ebf.js": "/game-bet/index.html/precache-manifest.7e463ea45d8a45ed135b27a50ecc2ebf.js",
+    "precache-manifest.9ee3dd731a008bb287f83881d2e3fb67.js": "/game-bet/index.html/precache-manifest.9ee3dd731a008bb287f83881d2e3fb67.js",
     "service-worker.js": "/game-bet/index.html/service-worker.js",
-    "static/css/main.8d5a8369.chunk.css.map": "/game-bet/index.html/static/css/main.8d5a8369.chunk.css.map",
+    "static/css/main.32c5c161.chunk.css.map": "/game-bet/index.html/static/css/main.32c5c161.chunk.css.map",
     "static/js/2.bd4f691b.chunk.js.LICENSE": "/game-bet/index.html/static/js/2.bd4f691b.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.f2f582a3.js",
     "static/js/2.bd4f691b.chunk.js",
-    "static/css/main.8d5a8369.chunk.css",
+    "static/css/main.32c5c161.chunk.css",
     "static/js/main.a08502d6.chunk.js"
   ]
 }

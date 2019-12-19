@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c0b243dcdde1925e12433c5a865bffc6",
+    "revision": "4b927f5a7bf2d08e74235f2f5bc4e4da",
     "url": "/game-bet/index.html/index.html"
   },
   {
-    "revision": "4107798d931dba437da8",
-    "url": "/game-bet/index.html/static/css/main.8d5a8369.chunk.css"
+    "revision": "c6a25c4687034952bc26",
+    "url": "/game-bet/index.html/static/css/main.32c5c161.chunk.css"
   },
   {
     "revision": "9e1d9b542860d1bd92bc",
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/game-bet/index.html/static/js/2.bd4f691b.chunk.js.LICENSE"
   },
   {
-    "revision": "4107798d931dba437da8",
+    "revision": "c6a25c4687034952bc26",
     "url": "/game-bet/index.html/static/js/main.a08502d6.chunk.js"
   },
   {

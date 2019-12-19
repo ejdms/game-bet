@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/game-bet/index.html/precache-manifest.7e463ea45d8a45ed135b27a50ecc2ebf.js"
+  "/game-bet/index.html/precache-manifest.9ee3dd731a008bb287f83881d2e3fb67.js"
 );
 
 self.addEventListener('message', (event) => {
